@@ -1,5 +1,5 @@
 var mapOptions = {
-  center: [41.322, 19.444], //set center
+  center: [41.3225, 19.445], //set center
   zoom: 18 , //set initial zoom
   maxZoom : 22,  //set max zoom
   minZoom : 6,
@@ -26,8 +26,10 @@ var allSUs = L.geoJSON(allLayers, {
 
   }
 }).addTo(map);
+
+var drone1 = L.tileLayer('./drone/{z}/{x}/{y}.png', {tms: true, attribution: "", minZoom: 18, maxZoom: 22}).addTo(map);
+
 /*
-var portsmouth1779 = L.tileLayer('./georeferencedMaps/1779/1779/{z}/{x}/{y}.png', {tms: true, attribution: "", minZoom: 13, maxZoom: 19}).addTo(map);
 var portsmouth1813 = L.tileLayer('./georeferencedMaps/1813/1813/{z}/{x}/{y}.png', {tms: true, attribution: "", minZoom: 13, maxZoom: 19});
 var portsmouth1850 = L.tileLayer('./georeferencedMaps/1850/1850/{z}/{x}/{y}.png', {tms: true, attribution: "", minZoom: 13, maxZoom: 19});
 var portsmouth1876 = L.tileLayer('./georeferencedMaps/1876/1876/{z}/{x}/{y}.png', {tms: true, attribution: "", minZoom: 13, maxZoom: 18});
