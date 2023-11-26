@@ -68,7 +68,7 @@ map.on('popupopen', function(e) {
 
 function changeLanguage(lang) {
   console.log(lang);
-  map.removeLayer(sites);
+  //map.removeLayer(sites);
   if (lang == "en") {
     langNumber=1;
     var sites= L.geoJSON(nearbySites, {
