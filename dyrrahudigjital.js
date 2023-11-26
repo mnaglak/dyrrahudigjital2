@@ -40,7 +40,7 @@ var sites= L.geoJSON(nearbySites, {
   onEachFeature: popUpPlacesAL,
   pointToLayer: function (feature, latlng) {
       var markerStyle = {
-          color: "#FFF",
+          color: "rgba(94, 8, 11, .8)",
           fillOpacity: 1,
           opacity: 0.5,
           weight: 1,
