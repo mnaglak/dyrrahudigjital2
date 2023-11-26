@@ -7,7 +7,7 @@ var mapOptions = {
     minZoom: 10,
     //maxBounds: [[39.690784799474905, 19.81299812520738], [40.098806006678494, 20.262505016975012]],
     //panControl: true,
-    fullscreenControl:true,
+    //fullscreenControl:true,
     //fullscreenControlOptions: {position:'topleft'},
     touchZoom: true,
     attributionControl: false
@@ -15,6 +15,8 @@ var mapOptions = {
 
 var map = L.map('map', mapOptions);
 L.control.pan().addTo(map);
+//var full = new L.Control.Fullscreen();
+//map.addControl(full);
 var mapWidth = map.getSize().x;
 var mapHeight = map.getSize().y;
 var popUpWidth = mapWidth * 0.6;
@@ -59,7 +61,7 @@ function popUpPlacesEN(f, l) {
         l.bindPopup(out.join("<br/>"), { maxHeight: popUpHeight, maxWidth: popUpWidth, closeOnClick: true });
     }
 }
-var drone1 = L.tileLayer('./drone/{z}/{x}/{y}.png', {tms: true, attribution: "", minZoom: 18, maxZoom: 22}).addTo(map);
+var drone1 = L.tileLayer('./trimmed2/drone/{z}/{x}/{y}.png', {tms: true, attribution: "", minZoom: 18, maxZoom: 22}).addTo(map);
 map.on('popupopen', function(e) {
     var px = map.project(e.target._popup._latlng); // find the pixel location on the map where the popup anchor is
     px.y -= e.target._popup._container.clientHeight/2; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
