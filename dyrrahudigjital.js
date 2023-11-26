@@ -26,28 +26,9 @@ var  Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/res
 attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
   }).addTo(map);
 
-var allSUs = L.geoJSON(allLayers, {
-  onEachFeature: function (feature, layer) {
-    var out = [];
-      if (feature.properties){
-        out.push("SU: " + feature.properties.SU);
-          }
-    layer.bindPopup(out.join("<br />"), {closeOnClick:true});
-
-  }
-}).addTo(map);
+var allSUs = L.geoJSON(allLayers).addTo(map);
 var sites= L.geoJSON(nearbySites, {
-  onEachFeature: popUpPlacesAL,
-  pointToLayer: function (feature, latlng) {
-      var markerStyle = {
-          color: "rgba(94, 8, 11, .8)",
-          fillOpacity: 1,
-          opacity: 0.5,
-          weight: 1,
-          radius: 10
-      };
-      return L.circleMarker(latlng, markerStyle);
-  }
+  onEachFeature: popUpPlacesAL
 }).addTo(map);
 
 function popUpPlacesAL(f, l) {
@@ -88,33 +69,14 @@ function changeLanguage(lang) {
   if (lang == "en") {
     langNumber=1;
     var sites= L.geoJSON(nearbySites, {
-      onEachFeature: popUpPlacesEN,
-      pointToLayer: function (feature, latlng) {
-          var markerStyle = {
-              color: "#FFF",
-              fillOpacity: 1,
-              opacity: 0.5,
-              weight: 1,
-              radius: 10
-          };
-          return L.circleMarker(latlng, markerStyle);
-      }
+      onEachFeature: popUpPlacesEN
+
 
     })}
     else {
       langNumber=1;
       var sites= L.geoJSON(nearbySites, {
-        onEachFeature: popUpPlacesAL,
-        pointToLayer: function (feature, latlng) {
-            var markerStyle = {
-                color: "#FFF",
-                fillOpacity: 1,
-                opacity: 0.5,
-                weight: 1,
-                radius: 10
-            };
-            return L.circleMarker(latlng, markerStyle);
-        }
+        onEachFeature: popUpPlacesAL
     })}
     sites.addTo(map);
 }
