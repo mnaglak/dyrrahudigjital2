@@ -25,7 +25,9 @@ var langNumber=0;
 var  Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom:22, maxNativeZoom:19,
 attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
   }).addTo(map);
-
+  var openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                      maxNativeZoom:17
+  });
 var allSUs = L.geoJSON(allLayers).addTo(map);
 var sites= L.geoJSON(nearbySites, {
   onEachFeature: popUpPlacesAL
@@ -65,6 +67,7 @@ map.on('popupopen', function(e) {
 });
 
 function changeLanguage(lang) {
+  console.log(lang);
   map.removeLayer(sites);
   if (lang == "en") {
     langNumber=1;
@@ -80,3 +83,8 @@ function changeLanguage(lang) {
     })}
     sites.addTo(map);
 }
+var baseLayers = {
+    "Imazhe Satelitore": Esri_WorldImagery,
+    "Harta Rrugore": openStreetMap
+};
+var controls = L.control.layers(baseLayers).addTo(map);
