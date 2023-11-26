@@ -17,7 +17,7 @@ var map = L.map('map', mapOptions);
 L.control.pan().addTo(map);
 var mapWidth = map.getSize().x;
 var mapHeight = map.getSize().y;
-var popUpWidth = mapWidth * 0.8;
+var popUpWidth = mapWidth * 0.6;
 var popUpHeight = mapHeight * 0.6;
 var imageWidth = popUpWidth * 0.8;
 var imageHeight = imageWidth * 0.6;
@@ -36,5 +36,37 @@ var allSUs = L.geoJSON(allLayers, {
 
   }
 }).addTo(map);
+var sites= L.geoJSON(nearbySites, {
+  onEachFeature: popUpPlaces,
+  pointToLayer: function (feature, latlng) {
+      var markerStyle = {
+          color: "#FFF",
+          fillOpacity: 1,
+          opacity: 0.5,
+          weight: 1,
+          radius: 10
+      };
+      return L.circleMarker(latlng, markerStyle);
+  }
+}).addTo(map);
+
+function popUpPlaces(f, l) {
+    l.bindTooltip(f.properties.Name);
+    var out = [];
+    var myImage;
+    var myImageW = imageWidth;
+    var myImageH = imageHeight;
+    if (f.properties) {
+        out.push("<img class='center' style='max-width:300px' src= '.\\" + f.properties.photo + "'/>");
+        out.push("<b><u>" + f.properties.Name + '</u></b>');
+        out.push('<br><b>Description: </b>' + f.properties.descriptionEN + '<br><center>');
+        l.bindPopup(out.join("<br/>"), { maxHeight: popUpHeight, maxWidth: popUpWidth, closeOnClick: true });
+    }
+}
 
 var drone1 = L.tileLayer('./drone/{z}/{x}/{y}.png', {tms: true, attribution: "", minZoom: 18, maxZoom: 22}).addTo(map);
+map.on('popupopen', function(e) {
+    var px = map.project(e.target._popup._latlng); // find the pixel location on the map where the popup anchor is
+    px.y -= e.target._popup._container.clientHeight/2; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+    map.panTo(map.unproject(px),{animate: true}); // pan to new center
+});
