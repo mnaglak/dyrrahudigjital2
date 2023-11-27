@@ -1,7 +1,7 @@
 var hash = window.location.hash.substr(1);
 var mapOptions = {
     tap: false,
-    center: [41.3225, 19.4445],
+    center: [41.355, 19.4445],
     zoom: 12,
     maxZoom: 22,
     minZoom: 10,
